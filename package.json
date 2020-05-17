@@ -1,7 +1,7 @@
 {
   "name": "node-filename-to-dist-paths",
-  "version": "0.1.1",
-  "description": "Cross-platform solution for installing releases of Node.js",
+  "version": "0.1.0",
+  "description": "Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/",
   "keywords": [
     "node",
     "version",
@@ -12,6 +12,7 @@
     "releases",
     "filename",
     "file",
+    "files",
     "dist"
   ],
   "repository": {
@@ -26,14 +27,11 @@
     "lint": "eslint .",
     "test": "mocha-compat test/spec/**/*.test.js --timeout=9999999"
   },
-  "dependencies": {
-    "semver": "^7.3.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "end-of-stream": "^1.4.4",
     "call-once-fn": "^1.0.0",
-    "get-remote": "^0.2.1",
+    "end-of-stream": "^1.4.4",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
@@ -41,10 +39,12 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "get-remote": "^0.2.1",
     "mocha-compat": "^3.5.5",
     "nvs": "^0.3.0",
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
+    "semver": "^6.3.0",
     "single-line-log": "^1.1.2"
   },
   "engines": {
