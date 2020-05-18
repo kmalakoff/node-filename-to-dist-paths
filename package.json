@@ -41,7 +41,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "get-remote": "^0.2.3",
     "mocha-compat": "^3.5.5",
-    "nvs": "^0.4.0",
+    "nvs": "^0.4.1",
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
     "semver": "^6.3.0",
