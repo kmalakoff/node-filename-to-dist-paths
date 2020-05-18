@@ -39,7 +39,7 @@ function checkFiles(dist, callback) {
   queue.await(callback);
 }
 
-describe('filename-to-dist', function () {
+describe.skip('filename-to-dist', function () {
   var dists = null;
 
   before(function (done) {
