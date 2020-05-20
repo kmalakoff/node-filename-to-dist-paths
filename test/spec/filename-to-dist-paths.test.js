@@ -39,12 +39,15 @@ function checkFiles(dist, callback) {
   queue.await(callback);
 }
 
-describe.skip('filename-to-dist', function () {
+var MAX_TESTS = 1;
+
+describe('filename-to-dist', function () {
   var dists = null;
 
   before(function (done) {
     fetch('https://nodejs.org/dist/index.json', function (err, json) {
       dists = json;
+      if (MAX_TESTS) dists = json.slice(0, MAX_TESTS);
       // dists = json.filter(function (x) {
       //   return x.version === 'v0.12.18';
       // });
