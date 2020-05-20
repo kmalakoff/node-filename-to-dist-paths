@@ -12,8 +12,7 @@
     "releases",
     "filename",
     "file",
-    "files",
-    "dist"
+    "files"
   ],
   "repository": {
     "type": "git",
