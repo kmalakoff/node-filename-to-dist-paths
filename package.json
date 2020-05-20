@@ -48,6 +48,6 @@
     "single-line-log": "^1.1.2"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.12"
   }
 }
