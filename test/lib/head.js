@@ -1,9 +1,9 @@
 var url = require('url');
 var https = require('https');
-var callOnce = require('call-once-fn');
+var once = require('once');
 
 module.exports = function head(src, callback) {
-  callback = callOnce(callback);
+  callback = once(callback);
 
   // eslint-disable-next-line node/no-deprecated-api
   var parsed = url.parse(src);
