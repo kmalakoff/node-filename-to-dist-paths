@@ -1,19 +1,13 @@
 var assert = require('assert');
 var log = require('single-line-log').stdout;
 var Queue = require('queue-cb');
+var superagent = require('superagent');
 
-var fetch = require('../lib/fetch');
-var head = require('../lib/head');
 var distPaths = require('../..');
-
-// console.log(distPaths('win-x64-exe', 'v14.2.0'));
-// console.log(distPaths('osx-x64-tar', 'v14.2.0'));
-// console.log(distPaths('win-x64-exe', 'v0.6.18'));
-// console.log(distPaths('osx-x64-tar', 'v0.6.18'));
 
 function checkExists(distPath, filename, callback) {
   log(filename, distPath);
-  head('https://nodejs.org/dist/' + distPath, function (err, res) {
+  superagent.head('https://nodejs.org/dist/' + distPath).end(function (err, res) {
     if (err) return callback(err);
     assert.equal(res.statusCode, 200, distPath);
     callback();
@@ -39,20 +33,26 @@ function checkFiles(dist, callback) {
   queue.await(callback);
 }
 
+var SPECIFIC_VERSION = null; // 'v0.12.18'
 var MAX_TESTS = 1;
 
 describe('filename-to-dist', function () {
   var dists = null;
 
   before(function (done) {
-    fetch('https://nodejs.org/dist/index.json', function (err, json) {
-      dists = json;
-      if (MAX_TESTS) dists = json.slice(0, MAX_TESTS);
-      // dists = json.filter(function (x) {
-      //   return x.version === 'v0.12.18';
-      // });
-      done(err);
-    });
+    superagent
+      .get('https://nodejs.org/dist/index.json')
+      .set('Accept', 'application/json')
+      .end(function (err, res) {
+        if (err) return done(err);
+        dists = res.body;
+        if (SPECIFIC_VERSION) {
+          dists = dists.filter(function (x) {
+            return x.version === SPECIFIC_VERSION;
+          });
+        } else if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
+        done(err);
+      });
   });
 
   it('all versions', function (done) {
