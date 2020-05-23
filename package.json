@@ -1,6 +1,6 @@
 {
   "name": "node-filename-to-dist-paths",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/",
   "keywords": [
     "node",
@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "once": "^1.4.0",
     "end-of-stream": "^1.4.4",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
@@ -40,14 +39,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "get-remote": "^0.4.5",
     "mocha-compat": "^3.5.5",
     "nvs": "^0.4.4",
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
-    "single-line-log": "^1.1.2"
+    "single-line-log": "^1.1.2",
+    "superagent": "^2.3.0"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": ">=0.8"
   }
 }
