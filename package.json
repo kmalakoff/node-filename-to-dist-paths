@@ -21,7 +21,6 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "compat": "nvs --engines -- mocha-compat test/spec/**/*.test.js  --no-timeouts",
     "format": "eslint . --fix",
     "lint": "eslint .",
     "test": "mocha-compat test/spec/**/*.test.js --no-timeouts"
@@ -31,7 +30,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "end-of-stream": "^1.4.4",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
@@ -40,11 +38,10 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "mocha-compat": "^3.5.5",
-    "nvs": "^0.4.4",
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
     "single-line-log": "^1.1.2",
-    "superagent": "^2.3.0"
+    "superagent": "^5.2.2"
   },
   "engines": {
     "node": ">=0.8"
