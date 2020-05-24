@@ -41,7 +41,7 @@
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
     "single-line-log": "^1.1.2",
-    "superagent": "^5.2.2"
+    "superagent": "^2.3.0"
   },
   "engines": {
     "node": ">=0.8"
