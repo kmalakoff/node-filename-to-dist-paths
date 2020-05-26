@@ -33,7 +33,7 @@ function checkFiles(dist, callback) {
   queue.await(callback);
 }
 
-var SPECIFIC_VERSION = null; // 'v0.12.18'
+var SPECIFIC_VERSION = null;
 var MAX_TESTS = 1;
 
 describe('filename-to-dist', function () {
