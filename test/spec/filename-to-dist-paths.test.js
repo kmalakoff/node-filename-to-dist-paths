@@ -1,13 +1,14 @@
 var assert = require('assert');
 var log = require('single-line-log').stdout;
 var Queue = require('queue-cb');
-var superagent = require('superagent');
 
 var distPaths = require('../..');
+var fetch = require('../lib/fetch');
+var head = require('../lib/head');
 
 function checkExists(distPath, filename, callback) {
   log(filename, distPath);
-  superagent.head('https://nodejs.org/dist/' + distPath).end(function (err, res) {
+  head('https://nodejs.org/dist/' + distPath, function (err, res) {
     if (err) return callback(err);
     assert.equal(res.statusCode, 200, distPath);
     callback();
@@ -40,19 +41,16 @@ describe('filename-to-dist', function () {
   var dists = null;
 
   before(function (done) {
-    superagent
-      .get('https://nodejs.org/dist/index.json')
-      .set('Accept', 'application/json')
-      .end(function (err, res) {
-        if (err) return done(err);
-        dists = res.body;
-        if (SPECIFIC_VERSION) {
-          dists = dists.filter(function (x) {
-            return x.version === SPECIFIC_VERSION;
-          });
-        } else if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
-        done(err);
-      });
+    fetch('https://nodejs.org/dist/index.json', function (err, res) {
+      if (err) return done(err);
+      dists = res.body;
+      if (SPECIFIC_VERSION) {
+        dists = dists.filter(function (x) {
+          return x.version === SPECIFIC_VERSION;
+        });
+      } else if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
+      done(err);
+    });
   });
 
   it('all versions', function (done) {
