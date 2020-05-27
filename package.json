@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "end-of-stream": "^1.4.4",
     "eslint": "^7.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
@@ -40,8 +41,7 @@
     "mocha-compat": "^3.5.5",
     "prettier": "^2.0.5",
     "queue-cb": "^1.1.2",
-    "single-line-log": "^1.1.2",
-    "superagent": "^2.3.0"
+    "single-line-log": "^1.1.2"
   },
   "engines": {
     "node": ">=0.8"
