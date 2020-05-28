@@ -58,6 +58,9 @@ describe('filename-to-dist', function () {
     for (var index = 0; index < dists.length; index++) {
       queue.defer(checkFiles.bind(null, dists[index]));
     }
-    queue.await(done);
+    queue.await(function (err) {
+      console.log('');
+      done(err);
+    });
   });
 });
