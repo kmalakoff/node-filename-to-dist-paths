@@ -4,11 +4,10 @@ var Queue = require('queue-cb');
 
 var distPaths = require('../..');
 var fetch = require('../lib/fetch');
-var head = require('../lib/head');
 
 function checkExists(distPath, filename, callback) {
   log(filename, distPath);
-  head('https://nodejs.org/dist/' + distPath, function (err, res) {
+  fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
     if (err) return callback(err);
     assert.equal(res.statusCode, 200, distPath);
     callback();
