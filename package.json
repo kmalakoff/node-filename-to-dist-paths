@@ -21,14 +21,14 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "format": "eslint . --fix",
+    "format": "prettier --write .",
     "lint": "eslint .",
     "test": "mocha-compat test/spec/**/*.test.js --no-timeouts"
   },
   "dependencies": {
     "lodash.find": "^4.6.0",
     "match-semver": "^0.1.0",
-    "semver": "^5.7.1"
+    "object-assign": "^4.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
