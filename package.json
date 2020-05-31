@@ -1,6 +1,6 @@
 {
   "name": "node-filename-to-dist-paths",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/",
   "keywords": [
     "node",
@@ -26,6 +26,8 @@
     "test": "mocha-compat test/spec/**/*.test.js --no-timeouts"
   },
   "dependencies": {
+    "lodash.find": "^4.6.0",
+    "match-semver": "^0.1.0",
     "semver": "^5.7.1"
   },
   "devDependencies": {

@@ -1,11 +1,12 @@
-var findVersion = require('./lib/findVersion');
+var match = require('match-semver');
+var find = require('lodash.find');
 
 var FILENAMES = require('./lib/filenames');
 var PATHS = require('./lib/paths');
 
 module.exports = function filenameToDists(filename, version) {
-  var filenames = findVersion(FILENAMES, version);
-  var paths = findVersion(PATHS, version);
+  var filenames = find(FILENAMES, match.bind(null, version));
+  var paths = find(PATHS, match.bind(null, version));
 
   var results = [];
   for (var key in filenames.map) {
