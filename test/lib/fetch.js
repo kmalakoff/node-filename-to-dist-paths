@@ -38,12 +38,12 @@ module.exports = function fetch(endpoint, options, callback) {
     }
 
     // GET
-    var chunks = [];
-    res.on('data', function data(chunk) {
-      chunks.push(chunk);
+    var data = '';
+    res.on('data', function (chunk) {
+      data += chunk.toString();
     });
     eos(res, function (err) {
-      err ? callback(err) : callback(null, { headers: res.headers, body: JSON.parse(chunks.join('')) });
+      err ? callback(err) : callback(null, { headers: res.headers, body: JSON.parse(data) });
     });
   });
   req.on('error', callback);
