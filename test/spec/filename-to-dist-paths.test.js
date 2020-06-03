@@ -5,8 +5,6 @@ var Queue = require('queue-cb');
 var distPaths = require('../..');
 var fetch = require('../lib/fetch');
 
-var counter = 0;
-
 function checkFileName(filename, version, callback) {
   var queue = new Queue(1);
   var all = distPaths(filename, version).reverse();
@@ -14,11 +12,9 @@ function checkFileName(filename, version, callback) {
 
   function next(callback) {
     if (!all.length) return callback();
-    console.log('checkFileName-a', ++counter);
     var distPath = all.pop();
     log(filename, distPath);
     fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
-      console.log('\ncheckFileName-r', --counter);
       if (err) return callback(err);
       assert.equal(res.statusCode, 200, distPath);
       queue.defer(next);
@@ -36,9 +32,7 @@ function checkFiles(dist, callback) {
 
   function next(callback) {
     if (!all.length) return callback();
-    console.log('checkFiles-a', ++counter);
     checkFileName(all.pop(), dist.version, function (err) {
-      console.log('checkFiles-r', --counter);
       if (err) return callback(err);
       queue.defer(next);
       callback();
@@ -74,9 +68,7 @@ describe('filename-to-dist', function () {
 
     function next(callback) {
       if (!all.length) return callback();
-      console.log('root-a', ++counter);
       checkFiles(all.pop(), function (err) {
-        console.log('root-r', --counter);
         if (err) return callback(err);
         queue.defer(next);
         callback();
