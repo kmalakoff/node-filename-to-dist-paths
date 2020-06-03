@@ -21,7 +21,7 @@ module.exports = function fetch(endpoint, options, callback) {
   console.log(1, { host: parsed.host, path: parsed.path, port: 443, method: method, highWaterMark: options.highWaterMark });
 
   req.on('response', function response(res) {
-    console.log(2, res);
+    console.log(2, res.statusCode);
 
     // Follow 3xx redirects
     if (res.statusCode >= 300 && res.statusCode < 400 && 'location' in res.headers) {
