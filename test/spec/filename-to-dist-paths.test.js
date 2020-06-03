@@ -9,7 +9,7 @@ function checkFileName(filename, version, callback) {
   var all = distPaths(filename, version).reverse();
   assert.ok(distPaths.length > 0, filename + ' ' + version);
 
-  var queue = new Queue();
+  var queue = new Queue(5);
   while (all.length) {
     (function (distPath) {
       queue.defer(function (callback) {
@@ -43,7 +43,7 @@ function checkFiles(dist, callback) {
 }
 
 var SPECIFIC_VERSION = null;
-var MAX_TESTS = 10;
+var MAX_TESTS = 1;
 
 describe('filename-to-dist', function () {
   var dists = null;
