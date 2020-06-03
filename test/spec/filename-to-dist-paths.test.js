@@ -6,22 +6,23 @@ var distPaths = require('../..');
 var fetch = require('../lib/fetch');
 
 function checkFileName(filename, version, callback) {
+  var queue = new Queue(1);
   var all = distPaths(filename, version).reverse();
-  assert.ok(distPaths.length > 0, filename + ' ' + version);
+  assert.ok(all.length > 0, filename + ' ' + version);
 
-  var queue = new Queue(5);
-  while (all.length) {
-    (function (distPath) {
-      queue.defer(function (callback) {
-        log(filename, distPath);
-        fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
-          if (err) return callback(err);
-          assert.equal(res.statusCode, 200, distPath);
-          callback();
-        });
-      });
-    })(all.pop());
+  function next(callback) {
+    if (!all.length) return callback();
+    var distPath = all.pop();
+    log(filename, distPath);
+    fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
+      if (err) return callback(err);
+      assert.equal(res.statusCode, 200, distPath);
+      queue.defer(next);
+      callback();
+    });
   }
+
+  queue.defer(next);
   queue.await(callback);
 }
 
