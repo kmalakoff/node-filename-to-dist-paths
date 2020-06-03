@@ -5,36 +5,47 @@ var Queue = require('queue-cb');
 var distPaths = require('../..');
 var fetch = require('../lib/fetch');
 
-function checkExists(distPath, filename, callback) {
-  log(filename, distPath);
-  fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
-    if (err) return callback(err);
-    assert.equal(res.statusCode, 200, distPath);
-    callback();
-  });
-}
-
 function checkFileName(filename, version, callback) {
-  var paths = distPaths(filename, version);
-  assert.ok(distPaths.length > 0, filename + ' ' + version);
-
   var queue = new Queue(1);
-  for (var index = 0; index < paths.length; index++) {
-    queue.defer(checkExists.bind(null, paths[index], filename));
+  var all = distPaths(filename, version).reverse();
+  assert.ok(all.length > 0, filename + ' ' + version);
+
+  function next(callback) {
+    if (!all.length) return callback();
+    var distPath = all.pop();
+    log(filename, distPath);
+    fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
+      if (err) return callback(err);
+      assert.equal(res.statusCode, 200, distPath);
+      queue.defer(next);
+      callback();
+    });
   }
+
+  queue.defer(next);
   queue.await(callback);
 }
 
 function checkFiles(dist, callback) {
   var queue = new Queue(1);
-  for (var index = 0; index < dist.files.length; index++) {
-    queue.defer(checkFileName.bind(null, dist.files[index], dist.version));
+  var all = dist.files.slice().reverse();
+
+  function next(callback) {
+    if (!all.length) return callback();
+    checkFileName(all.pop(), dist.version, function (err) {
+      if (err) return callback(err);
+      queue.defer(next);
+      callback();
+    });
   }
+
+  queue.defer(next);
   queue.await(callback);
 }
 
 var SPECIFIC_VERSION = null;
-var MAX_TESTS = 1;
+var MAX_TESTS = null;
+// var MAX_TESTS = 1;
 
 describe('filename-to-dist', function () {
   var dists = null;
@@ -54,9 +65,18 @@ describe('filename-to-dist', function () {
 
   it('all versions', function (done) {
     var queue = new Queue(1);
-    for (var index = 0; index < dists.length; index++) {
-      queue.defer(checkFiles.bind(null, dists[index]));
+    var all = dists.slice().reverse();
+
+    function next(callback) {
+      if (!all.length) return callback();
+      checkFiles(all.pop(), function (err) {
+        if (err) return callback(err);
+        queue.defer(next);
+        callback();
+      });
     }
+
+    queue.defer(next);
     queue.await(function (err) {
       console.log('');
       done(err);
