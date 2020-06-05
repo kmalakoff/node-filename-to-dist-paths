@@ -13,7 +13,7 @@ function checkFileName(filename, version, callback) {
   function next(callback) {
     if (!all.length) return callback();
     var distPath = all.pop();
-    log(filename, distPath);
+    log(filename + ' ' + distPath);
     get('https://nodejs.org/dist/' + distPath).head(function (err, res) {
       if (err) return callback(err);
       assert.equal(res.statusCode, 200, distPath);
