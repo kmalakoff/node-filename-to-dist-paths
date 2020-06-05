@@ -1,9 +1,9 @@
 var assert = require('assert');
 var log = require('single-line-log').stdout;
 var Queue = require('queue-cb');
+var get = require('get-remote');
 
 var distPaths = require('../..');
-var fetch = require('../lib/fetch');
 
 function checkFileName(filename, version, callback) {
   var queue = new Queue(1);
@@ -14,7 +14,7 @@ function checkFileName(filename, version, callback) {
     if (!all.length) return callback();
     var distPath = all.pop();
     log(filename, distPath);
-    fetch('https://nodejs.org/dist/' + distPath, { method: 'HEAD' }, function (err, res) {
+    get('https://nodejs.org/dist/' + distPath).head(function (err, res) {
       if (err) return callback(err);
       assert.equal(res.statusCode, 200, distPath);
       queue.defer(next);
@@ -50,7 +50,7 @@ describe('filename-to-dist', function () {
   var dists = null;
 
   before(function (done) {
-    fetch('https://nodejs.org/dist/index.json', function (err, res) {
+    get('https://nodejs.org/dist/index.json').json(function (err, res) {
       if (err) return done(err);
       dists = res.body;
       if (SPECIFIC_VERSION) {
