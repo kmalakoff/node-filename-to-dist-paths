@@ -1,5 +1,5 @@
 var assert = require('assert');
-var log = require('single-line-log').stdout;
+var log = require('single-line-log2').stdout;
 var Queue = require('queue-cb');
 var get = require('get-remote');
 
