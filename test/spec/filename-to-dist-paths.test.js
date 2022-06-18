@@ -62,7 +62,7 @@ describe('filename-to-dist', function () {
         if (SKIP_TESTS) dists = dists.slice(SKIP_TESTS);
         if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
       }
-    done(err);
+      done(err);
     });
   });
 
