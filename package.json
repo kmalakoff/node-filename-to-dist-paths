@@ -1,6 +1,6 @@
 {
   "name": "node-filename-to-dist-paths",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/",
   "keywords": [
     "node",
