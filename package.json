@@ -37,15 +37,15 @@
     "match-semver": "^0.1.1"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^5.30.7",
+    "@typescript-eslint/parser": "^5.31.0",
     "depcheck": "^1.4.3",
-    "eslint": "^8.20.0",
+    "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-promise": "^6.0.0",
-    "get-remote": "^0.7.5",
+    "get-remote": "^0.7.6",
     "mocha-compat": "^3.5.5",
     "prettier": "^2.7.1",
     "queue-cb": "^1.1.7",
