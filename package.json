@@ -45,7 +45,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-promise": "^6.0.0",
-    "get-remote": "^0.8.0",
+    "get-remote": "^0.8.1",
     "mocha-compat": "^3.5.5",
     "prettier": "^2.7.1",
     "queue-cb": "^1.1.7",
