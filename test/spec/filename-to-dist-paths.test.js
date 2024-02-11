@@ -8,13 +8,13 @@ var distPaths = require('../..');
 function checkFileName(filename, version, callback) {
   var queue = new Queue(1);
   var all = distPaths(filename, version).reverse();
-  assert.ok(all.length > 0, `${filename} ${version}`);
+  assert.ok(all.length > 0, filename + ' ' + version);
 
   function next(callback) {
     if (!all.length) return callback();
     var distPath = all.pop();
-    log(`${filename} ${distPath}`);
-    get(`https://nodejs.org/dist/${distPath}`).head((err, res) => {
+    log(filename + ' ' + distPath);
+    get('https://nodejs.org/dist/' + distPath).head(function (err, res) {
       if (err) return callback(err);
       assert.equal(res.statusCode, 200, distPath);
       queue.defer(next);
@@ -32,7 +32,7 @@ function checkFiles(dist, callback) {
 
   function next(callback) {
     if (!all.length) return callback();
-    checkFileName(all.pop(), dist.version, (err) => {
+    checkFileName(all.pop(), dist.version, function (err) {
       if (err) return callback(err);
       queue.defer(next);
       callback();
@@ -47,15 +47,17 @@ var SPECIFIC_VERSION = null;
 var SKIP_TESTS = 0;
 var MAX_TESTS = 1;
 
-describe('filename-to-dist', () => {
+describe('filename-to-dist', function () {
   var dists = null;
 
-  before((done) => {
-    get('https://nodejs.org/dist/index.json').json((err, res) => {
+  before(function (done) {
+    get('https://nodejs.org/dist/index.json').json(function (err, res) {
       if (err) return done(err);
       dists = res.body;
       if (SPECIFIC_VERSION) {
-        dists = dists.filter((x) => x.version === SPECIFIC_VERSION);
+        dists = dists.filter(function (x) {
+          return x.version === SPECIFIC_VERSION;
+        });
       } else {
         if (SKIP_TESTS) dists = dists.slice(SKIP_TESTS);
         if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
@@ -64,13 +66,13 @@ describe('filename-to-dist', () => {
     });
   });
 
-  it('all versions', (done) => {
+  it('all versions', function (done) {
     var queue = new Queue(1);
     var all = dists.slice().reverse();
 
     function next(callback) {
       if (!all.length) return callback();
-      checkFiles(all.pop(), (err) => {
+      checkFiles(all.pop(), function (err) {
         if (err) return callback(err);
         queue.defer(next);
         callback();
@@ -78,7 +80,7 @@ describe('filename-to-dist', () => {
     }
 
     queue.defer(next);
-    queue.await((err) => {
+    queue.await(function (err) {
       console.log('');
       done(err);
     });
