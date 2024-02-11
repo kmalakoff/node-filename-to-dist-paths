@@ -1,15 +1,28 @@
 {
   "name": "node-filename-to-dist-paths",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/",
-  "keywords": ["node", "version", "versions", "install", "dist", "release", "releases", "filename", "file", "files"],
+  "keywords": [
+    "node",
+    "version",
+    "versions",
+    "install",
+    "dist",
+    "release",
+    "releases",
+    "filename",
+    "file",
+    "files"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:kmalakoff/node-filename-to-dist-paths.git"
   },
   "license": "MIT",
   "main": "lib/index.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "",
     "format": "biome check --apply lib/ test/",
