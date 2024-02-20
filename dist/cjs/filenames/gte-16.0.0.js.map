@@ -1,0 +1,1 @@
+{"version":3,"sources":["gte-16.0.0.js"],"sourcesContent":["module.exports = { ...require('./lt-16.0.0.js'), 'darwin-arm64': 'osx-arm64-tar' };\n"],"names":["module","exports","require"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAAA,OAAOC,OAAO,GAAG,wCAAKC,QAAQ;IAAmB,gBAAgB"}

@@ -1,1 +1,1 @@
-ignores: ["depcheck"]
+ignores: ["node-filename-to-dist-paths", "depcheck", "ts-dev-stack", "@types/*"]

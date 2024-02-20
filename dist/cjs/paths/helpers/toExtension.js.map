@@ -1,0 +1,1 @@
+{"version":3,"sources":["toExtension.js"],"sourcesContent":["module.exports = function toExtension(key, version) {\n  return [`node-${version}.${key}`];\n};\n"],"names":["module","exports","toExtension","key","version"],"mappings":";AAAAA,OAAOC,OAAO,GAAG,SAASC,YAAYC,GAAG,EAAEC,OAAO;IAChD,OAAO;QAAE,QAAkBD,OAAXC,SAAQ,KAAO,OAAJD;KAAM;AACnC"}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["addHyphen.js"],"sourcesContent":["module.exports = function addHyphen(key, version) {\n  return [`node-${version}-${key}`];\n};\n"],"names":["module","exports","addHyphen","key","version"],"mappings":";AAAAA,OAAOC,OAAO,GAAG,SAASC,UAAUC,GAAG,EAAEC,OAAO;IAC9C,OAAO;QAAE,QAAkBD,OAAXC,SAAQ,KAAO,OAAJD;KAAM;AACnC"}
