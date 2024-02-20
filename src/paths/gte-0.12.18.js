@@ -1,6 +1,6 @@
-var addExtensionsFn = require('./helpers/addExtensionsFn');
-var addHyphen = require('./helpers/addHyphen');
-var toExtension = require('./helpers/toExtension');
+const addExtensionsFn = require('./helpers/addExtensionsFn');
+const addHyphen = require('./helpers/addHyphen');
+const toExtension = require('./helpers/toExtension');
 
 module.exports = {
   'tar.gz': toExtension,

@@ -1,6 +1,5 @@
-var assign = require('just-extend');
-
-module.exports = assign({}, require('./base'), {
+module.exports = {
+  ...require('./base'),
   'node.exe': 'win-x86-exe',
   headers: 'headers',
   'x64.msi': 'win-x64-msi',
@@ -14,4 +13,4 @@ module.exports = assign({}, require('./base'), {
   // 'x64/node.lib': 'win-x64-exe',
   // 'x64/openssl-cli.exe': 'win-x64-exe',
   // 'x64/openssl-cli.pdb': 'win-x64-exe',
-});
+};
