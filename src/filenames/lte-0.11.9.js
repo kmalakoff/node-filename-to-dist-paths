@@ -1,6 +1,5 @@
-var assign = require('just-extend');
-
-module.exports = assign({}, require('./base'), {
+module.exports = {
+  ...require('./base'),
   'node.exe': 'win-x86-exe',
   headers: 'headers',
   // 'node.exp': 'win-x86-exe',
@@ -10,4 +9,4 @@ module.exports = assign({}, require('./base'), {
   // 'x64/node.exp': 'win-x64-exe',
   // 'x64/node.lib': 'win-x64-exe',
   'x64/node.msi': 'win-x64-msi',
-});
+};
