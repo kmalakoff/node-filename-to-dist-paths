@@ -1,6 +1,5 @@
-var assign = require('just-extend');
-
-module.exports = assign({}, require('./base'), {
+module.exports = {
+  ...require('./base'),
   'tar.xz': 'src',
   headers: 'headers',
   'win-x64/node.exe': 'win-x64-exe',
@@ -16,4 +15,4 @@ module.exports = assign({}, require('./base'), {
   'win-x64.zip': 'win-x64-zip',
   'win-x86.zip': 'win-x86-zip',
   'win-arm.zip': 'win-arm-zip',
-});
+};
