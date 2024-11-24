@@ -51,7 +51,7 @@ function _object_spread_props(target, source) {
     }
     return target;
 }
-module.exports = _object_spread_props(_object_spread({}, require("./lt-16.0.0.js")), {
-    "darwin-arm64": "osx-arm64-tar"
+module.exports = _object_spread_props(_object_spread({}, require('./lt-16.0.0.js')), {
+    'darwin-arm64': 'osx-arm64-tar'
 });
 /* CJS INTEROP */ if (exports.__esModule && exports.default) { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) exports.default[key] = exports[key]; module.exports = exports.default; }

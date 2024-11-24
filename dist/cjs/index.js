@@ -24,7 +24,7 @@ function filenameToDists(filename, version) {
     for(var key in filenames.map){
         if (filenames.map[key] !== filename) continue;
         var pathsFunction = paths.map[key];
-        if (!pathsFunction && ~key.indexOf(".")) {
+        if (!pathsFunction && ~key.indexOf('.')) {
             results.push("".concat(version, "/").concat(key));
         } else {
             var relativePaths = (pathsFunction || paths.map.default)(key, version);

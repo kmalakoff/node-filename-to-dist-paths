@@ -51,11 +51,11 @@ function _object_spread_props(target, source) {
     }
     return target;
 }
-module.exports = _object_spread_props(_object_spread({}, require("./base")), {
-    "node.exe": "win-x86-exe",
-    "node.pdb": "win-x86-exe",
-    "x64/node.exe": "win-x64-exe",
-    "x64/node.pdb": "win-x64-exe",
-    "x64/node.msi": "win-x64-msi"
+module.exports = _object_spread_props(_object_spread({}, require('./base')), {
+    'node.exe': 'win-x86-exe',
+    'node.pdb': 'win-x86-exe',
+    'x64/node.exe': 'win-x64-exe',
+    'x64/node.pdb': 'win-x64-exe',
+    'x64/node.msi': 'win-x64-msi'
 });
 /* CJS INTEROP */ if (exports.__esModule && exports.default) { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) exports.default[key] = exports[key]; module.exports = exports.default; }

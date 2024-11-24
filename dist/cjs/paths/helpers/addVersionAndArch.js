@@ -1,7 +1,7 @@
 "use strict";
 module.exports = function addVersionAndArch(key, version) {
-    var arch = key.split("/")[0];
-    var parts = key.split(".");
+    var arch = key.split('/')[0];
+    var parts = key.split('.');
     return [
         "".concat(parts[0], "-").concat(version, "-").concat(arch, ".").concat(parts[1])
     ];
