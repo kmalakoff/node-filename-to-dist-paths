@@ -24,7 +24,7 @@ function filenameToDists(filename, version) {
     for(var key in filenames.map){
         if (filenames.map[key] !== filename) continue;
         var pathsFunction = paths.map[key];
-        if (!pathsFunction && ~key.indexOf(".")) {
+        if (!pathsFunction && ~key.indexOf('.')) {
             results.push("".concat(version, "/").concat(key));
         } else {
             var relativePaths = (pathsFunction || paths.map.default)(key, version);
@@ -35,4 +35,4 @@ function filenameToDists(filename, version) {
     }
     return results;
 }
-/* CJS INTEROP */ if (exports.__esModule && exports.default) { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) exports.default[key] = exports[key]; module.exports = exports.default; }
+/* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) {}; module.exports = exports.default; }
