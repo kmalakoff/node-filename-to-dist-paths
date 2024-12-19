@@ -51,8 +51,8 @@ function _object_spread_props(target, source) {
     }
     return target;
 }
-module.exports = _object_spread_props(_object_spread({}, require("./gte-16.0.0.js")), {
-    "win-arm64.7z": "win-arm64-7z",
-    "win-arm64.zip": "win-arm64-zip"
+module.exports = _object_spread_props(_object_spread({}, require('./gte-16.0.0.js')), {
+    'win-arm64.7z': 'win-arm64-7z',
+    'win-arm64.zip': 'win-arm64-zip'
 });
-/* CJS INTEROP */ if (exports.__esModule && exports.default) { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) exports.default[key] = exports[key]; module.exports = exports.default; }
+/* CJS INTEROP */ if (exports.__esModule && exports.default) { try { Object.defineProperty(exports.default, '__esModule', { value: true }); for (var key in exports) { exports.default[key] = exports[key]; } } catch (_) {}; module.exports = exports.default; }
