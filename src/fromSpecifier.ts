@@ -3,8 +3,6 @@ import fromFilename from './fromFilename';
 import realArch from './lib/arch.cjs';
 import getDist from './lib/getDist';
 
-import type { Specifier } from './types';
-
 function startsWith(str, word) {
   return str.lastIndexOf(word, 0) === 0;
 }
@@ -16,8 +14,10 @@ function find(array, pattern) {
   return null;
 }
 
+import type { Specifier, SpecifierResult } from './types';
+
 let archMachine: NodeJS.Architecture;
-export default function fromSpecifier(specifier: Specifier, version: string) {
+export default function fromSpecifier(specifier: Specifier, version: string): SpecifierResult {
   if (!archMachine) archMachine = realArch() as NodeJS.Architecture;
 
   const dist = getDist(version);
@@ -30,10 +30,11 @@ export default function fromSpecifier(specifier: Specifier, version: string) {
   if (platform === 'win32') platform = 'win';
   else if (platform === 'darwin') platform = 'osx';
 
-  let file = find(dist.files, type ? `${platform}-${arch}-${type}` : `${platform}-${arch}`);
-  if (!file) file = find(dist.files, `${platform}-x64`);
-  if (!file) file = find(dist.files, `${platform}-x86`);
-  if (!file) return null;
+  let filename = find(dist.files, type ? `${platform}-${arch}-${type}` : `${platform}-${arch}`);
+  if (!filename) filename = find(dist.files, `${platform}-x64`);
+  if (!filename) filename = find(dist.files, `${platform}-x86`);
+  if (!filename) return null;
 
-  return fromFilename(file, version, specifier);
+  const distPath = fromFilename(filename, version, specifier);
+  return distPath ? { distPath, filename } : null;
 }
