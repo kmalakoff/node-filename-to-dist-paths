@@ -9,3 +9,8 @@ export interface Specifier {
   type?: string;
   compression?: string;
 }
+
+export interface SpecifierResult {
+  filename: string;
+  distPath: string;
+}
