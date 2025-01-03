@@ -41,12 +41,12 @@ describe('specifier', () => {
         const archs = PLAFORM_ARCHS[platform];
         for (let i = 0; i < archs.length; i++) {
           const arch = archs[i];
-          const distPath = fromSpecifier({ platform, arch }, version);
+          const result = fromSpecifier({ platform, arch }, version);
           try {
-            await get(`https://nodejs.org/dist/${distPath}`).head();
-            sll.stdout(`${version} ${platform} ${arch} ${distPath}.Status: OK`);
+            await get(`https://nodejs.org/dist/${result.distPath}`).head();
+            sll.stdout(`${version} ${platform} ${arch} ${result.distPath}.Status: OK`);
           } catch (err) {
-            console.log(`\n${version} ${platform} ${arch} ${distPath}. Status: Error ${err.message}`);
+            console.log(`\n${version} ${platform} ${arch} ${result.distPath}. Status: Error ${err.message}`);
             error = error || err;
           }
         }
