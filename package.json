@@ -39,6 +39,7 @@
   "scripts": {
     "build": "tsds build",
     "deploy": "tsds deploy",
+    "docs": "tsds docs",
     "format": "biome check --write --unsafe src/ test/ && biome check --config-path biome.es5.json --write --unsafe assets/ scripts/",
     "postinstall": "node scripts/postinstall.cjs",
     "test": "tsds test:node --no-timeouts",
@@ -46,7 +47,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "fetch-json-cache": "^1.2.5"
+    "fetch-json-cache": "^1.2.6"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
