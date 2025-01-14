@@ -42,7 +42,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "fetch-json-cache": "^1.2.15"
+    "fetch-json-cache": "^1.2.16"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
