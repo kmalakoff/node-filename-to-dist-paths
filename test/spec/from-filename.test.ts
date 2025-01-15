@@ -28,8 +28,6 @@ describe('filename', () => {
     const { version, files } = dist;
 
     it(`${version} should find the paths`, async () => {
-      let error = null;
-
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const distPath = fromFilename(file, version);
@@ -38,11 +36,10 @@ describe('filename', () => {
           sll.stdout(`${version} ${file} ${distPath}.Status: OK`);
         } catch (err) {
           console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
-          error = error || err;
+          throw err;
         }
       }
-
-      assert.ok(!error);
+      console.log(`\n${version} passed`);
     });
   }
 
