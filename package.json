@@ -1,7 +1,7 @@
 {
   "name": "node-filename-to-dist-paths",
   "version": "1.1.35",
-  "description": "Converts files from https://nodejs.org/dist/index.cjson into relative distribution paths for download from https://nodejs.org/dist/",
+  "description": "Converts files from https://nodejs.org/dist/index-cjson into relative distribution paths for download from https://nodejs.org/dist/",
   "keywords": [
     "node",
     "version",
@@ -21,13 +21,14 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "import": "./dist/esm/index.mjs",
-    "require": "./dist/cjs/index.cjs",
-    "types": "./dist/types/index.d.ts"
+    ".": {
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
-  "module": "dist/dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/cjs/index.d.cts",
   "files": [
     "dist",
     "assets",
