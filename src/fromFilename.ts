@@ -1,4 +1,4 @@
-import type { Specifier } from './types';
+import type { Specifier } from './types.js';
 
 export default function fromFilename(filename: string, version: string, specifier: Specifier = {}) {
   const major = +version.split('.')[0].slice(1);
