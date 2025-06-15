@@ -1,4 +1,3 @@
-import assert from 'assert';
 import get from 'get-remote';
 import Pinkie from 'pinkie-promise';
 import sll from 'single-line-log2';
