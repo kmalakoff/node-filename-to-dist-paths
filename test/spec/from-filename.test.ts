@@ -1,10 +1,8 @@
-import assert from 'assert';
 import get from 'get-remote';
-import Pinkie from 'pinkie-promise';
-import sll from 'single-line-log2';
-
 // @ts-ignore
 import fromFilename, { getDists } from 'node-filename-to-dist-paths';
+import Pinkie from 'pinkie-promise';
+import sll from 'single-line-log2';
 
 describe('filename', () => {
   (() => {
