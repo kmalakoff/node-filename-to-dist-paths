@@ -1,6 +1,6 @@
-import getDists from './getDists.js';
+import getDists from './getDists.ts';
 
-import type { Dist } from './types.js';
+import type { Dist } from './types.ts';
 
 export default function getDist(version: string): Dist | null {
   const dists = getDists();
