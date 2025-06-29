@@ -43,7 +43,7 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "fetch-json-cache": "^1.2.65"
+    "fetch-json-cache": "^1.3.0"
   },
   "devDependencies": {
     "@types/mocha": "*",
