@@ -1,5 +1,4 @@
 import get from 'get-remote';
-// @ts-ignore
 import fromFilename, { getDists } from 'node-filename-to-dist-paths';
 import Pinkie from 'pinkie-promise';
 import sll from 'single-line-log2';
