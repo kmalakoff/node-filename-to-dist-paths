@@ -38,7 +38,8 @@
     "build": "tsds build",
     "format": "biome check --write --unsafe src/ test/ && biome check --config-path biome.es5.json --write --unsafe assets/ scripts/",
     "postinstall": "node scripts/postinstall.cjs",
-    "test": "mocha --no-timeouts test/**/*.test.*",
+    "prepublishOnly": "tsds validate",
+    "test": "tsds test:node --no-timeouts",
     "test:engines": "nvu engines tsds test:node --no-timeouts",
     "version": "tsds version"
   },
@@ -46,11 +47,14 @@
     "fetch-json-cache": "*"
   },
   "devDependencies": {
+    "@biomejs/biome": "*",
     "@types/mocha": "*",
     "@types/node": "*",
     "get-remote": "*",
+    "node-version-use": "*",
     "pinkie-promise": "*",
-    "single-line-log2": "*"
+    "single-line-log2": "*",
+    "ts-dev-stack": "*"
   },
   "engines": {
     "node": ">=0.8"
