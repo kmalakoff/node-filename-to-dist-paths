@@ -1,1 +1,1 @@
-ignores: ["node-filename-to-dist-paths"]
+ignores: ["node-version-use", "ts-dev-stack", "@biomejs/biome", "node-filename-to-dist-paths"]
