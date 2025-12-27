@@ -1,19 +1,25 @@
 import { head } from 'get-file-compat';
 import fromFilename, { getDists } from 'node-filename-to-dist-paths';
+import Queue from 'queue-cb';
 import sll from 'single-line-log2';
 
 function headWithRetry(url, options?, callback?) {
-  const retries = options?.retries || 3;
-  const delay = options?.delay || 1000;
+  const retries = options?.retries || 10;
+  const delay = options?.delay || 2000;
+  const maxDelay = options?.maxDelay || 60000;
+  const timeout = options?.timeout || 20000;
 
   function attempt(n) {
-    head(url, (err) => {
+    head(url, { timeout }, (err) => {
       if (err) {
         if (n >= retries) {
           if (callback) callback(err);
           return;
         }
-        setTimeout(() => attempt(n + 1), delay * n);
+        // Exponential backoff with jitter and cap
+        const expDelay = Math.min(delay * 2 ** (n - 1), maxDelay);
+        const jitter = Math.random() * 1000;
+        setTimeout(() => attempt(n + 1), expDelay + jitter);
       } else {
         if (callback) callback(null);
       }
@@ -31,24 +37,30 @@ describe('filename', () => {
     const { version, files } = dist;
 
     it(`${version} should find the paths`, (done) => {
-      let completed = 0;
+      const queue = new Queue();
+
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const distPath = fromFilename(file, version);
-        headWithRetry(`https://nodejs.org/dist/${distPath}`, { retries: 3, delay: 1000 }, (err) => {
-          if (err) {
-            console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
-            done(err);
-          } else {
-            sll.stdout(`${version} ${file} ${distPath}.Status: OK`);
-            completed++;
-            if (completed === files.length) {
-              console.log(`\n${version} passed`);
-              done();
+
+        queue.defer((callback) => {
+          headWithRetry(`https://nodejs.org/dist/${distPath}`, { retries: 5, delay: 2000, timeout: 10000 }, (err) => {
+            if (err) {
+              console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
+              callback(err);
+            } else {
+              sll.stdout(`${version} ${file} ${distPath}.Status: OK`);
+              callback(null);
             }
-          }
+          });
         });
       }
+
+      queue.await((err) => {
+        if (err) return done(err);
+        console.log(`\n${version} passed`);
+        done();
+      });
     });
   }
 
