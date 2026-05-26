@@ -5,6 +5,6 @@ import type { Dist } from './types.ts';
 
 const cache = new Cache(CACHE_PATH);
 
-export default function getDists(): Dist[] {
+export default function getDists(): Dist[] | null {
   return cache.getSync<Dist[]>(DISTS_URL);
 }
