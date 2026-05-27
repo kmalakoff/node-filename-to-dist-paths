@@ -10,7 +10,7 @@ interface RetryOptions {
   timeout?: number;
 }
 
-function headWithRetry(url: string, options?: RetryOptions, callback?: (err?: Error) => void) {
+function headWithRetry(url: string, options?: RetryOptions, callback?: (err?: Error | null) => void) {
   const retries = options?.retries || 10;
   const delay = options?.delay || 2000;
   const maxDelay = options?.maxDelay || 60000;
