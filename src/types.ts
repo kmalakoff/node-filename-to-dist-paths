@@ -1,3 +1,6 @@
+export type DistCallback = (error?: Error | null, dist?: Dist | null) => void;
+export type DistsCallback = (error?: Error | null, dists?: Dist[] | null) => void;
+
 export interface Dist {
   version: string;
   date: string;
