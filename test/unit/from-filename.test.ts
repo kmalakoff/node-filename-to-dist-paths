@@ -3,6 +3,24 @@ import fromFilename, { getDists } from 'node-filename-to-dist-paths';
 import Pinkie from 'pinkie-promise';
 import sll from 'single-line-log2';
 
+function headWithRetry(url, retries?, delay?) {
+  retries = retries || 3;
+  delay = delay || 1000;
+
+  function attempt(n) {
+    return get(url)
+      .head()
+      .then(undefined, (err) => {
+        if (n >= retries) throw err;
+        return new Promise((resolve) => {
+          setTimeout(resolve, delay * n);
+        }).then(() => attempt(n + 1));
+      });
+  }
+
+  return attempt(1);
+}
+
 describe('filename', () => {
   (() => {
     // patch and restore promise
@@ -27,7 +45,7 @@ describe('filename', () => {
         const file = files[i];
         const distPath = fromFilename(file, version);
         try {
-          await get(`https://nodejs.org/dist/${distPath}`).head();
+          await headWithRetry(`https://nodejs.org/dist/${distPath}`);
           sll.stdout(`${version} ${file} ${distPath}.Status: OK`);
         } catch (err) {
           console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
