@@ -5,10 +5,10 @@
       "type": "node",
       "request": "launch",
       "name": "test:node",
-      "program": "/Users/kevin/.nvm/versions/node/v22.13.0/bin/tsds",
+      "runtimeExecutable": "tsds",
       "args": ["test:node", "--no-timeouts"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    }
+    },
   ]
 }
