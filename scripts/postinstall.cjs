@@ -1,18 +1,9 @@
-var Cache = require('fetch-json-cache');
-var constants = require('../assets/constants.cjs');
-
-function cache(callback) {
-  var cache = new Cache(constants.CACHE_PATH);
-  cache.get(constants.DISTS_URL, { force: true }, callback);
+#!/usr/bin/env node
+var fs = require('fs');
+var path = require('path');
+var compiled = path.join(__dirname, '..', 'dist', 'cjs', 'scripts', 'postinstall.js');
+if (fs.existsSync(compiled)) {
+  require(compiled);
+} else {
+  console.log('postinstall: Skipping (dist/ not built yet - run npm run build)');
 }
-
-// run patch
-cache(function (err) {
-  if (err) {
-    console.log('postinstall failed. Error: ' + err.message);
-    process.exit(-1);
-  } else {
-    console.log('postinstall succeeded');
-    process.exit(0);
-  }
-});
