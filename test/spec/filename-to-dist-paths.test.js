@@ -44,6 +44,7 @@ function checkFiles(dist, callback) {
 }
 
 var SPECIFIC_VERSION = null;
+var SKIP_TESTS = 0;
 var MAX_TESTS = 1;
 
 describe('filename-to-dist', function () {
@@ -57,8 +58,11 @@ describe('filename-to-dist', function () {
         dists = dists.filter(function (x) {
           return x.version === SPECIFIC_VERSION;
         });
-      } else if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
-      done(err);
+      } else {
+        if (SKIP_TESTS) dists = dists.slice(SKIP_TESTS);
+        if (MAX_TESTS) dists = dists.slice(0, MAX_TESTS);
+      }
+    done(err);
     });
   });
 
