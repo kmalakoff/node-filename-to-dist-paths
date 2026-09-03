@@ -1,1 +1,1 @@
-ignores: ["node-version-use", "ts-dev-stack", "node-filename-to-dist-paths"]
+ignores: ["node-filename-to-dist-paths", "node-version-use", "ts-dev-stack"]
