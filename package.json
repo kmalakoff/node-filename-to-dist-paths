@@ -32,20 +32,18 @@
   "types": "dist/cjs/index.d.ts",
   "files": [
     "dist",
-    "assets"
+    ".cache"
   ],
   "scripts": {
     "build": "tsds build",
-    "build:assets": "tsds validate && mkdir -p assets && cp -R dist/cjs/assets/*.cjs assets/",
+    "build:cache": "node scripts/generate-cache.mjs",
     "format": "tsds format",
-    "postinstall": "node assets/postinstall.cjs",
     "prepublishOnly": "tsds validate",
     "test": "tsds test:node --no-timeouts",
     "test:engines": "nvu engines tsds test:node --no-timeouts",
     "version": "tsds version"
   },
   "dependencies": {
-    "exit-compat": "^1.0.0",
     "fetch-json-cache": "^1.2.1"
   },
   "devDependencies": {
@@ -60,5 +58,11 @@
   },
   "engines": {
     "node": ">=0.8"
+  },
+  "allowScripts": {
+    "node-filename-to-dist-paths": true,
+    "node-semvers": true,
+    "node-version-use": true,
+    "thread-sleep-compat": true
   }
 }
