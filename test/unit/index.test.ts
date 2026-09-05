@@ -1,42 +1,8 @@
-import { head } from 'get-file-compat';
+import type { Dist } from 'node-filename-to-dist-paths';
 import fromFilename, { getDists } from 'node-filename-to-dist-paths';
 import Queue from 'queue-cb';
 import sll from 'single-line-log2';
-
-interface RetryOptions {
-  retries?: number;
-  delay?: number;
-  maxDelay?: number;
-  timeout?: number;
-}
-
-function headWithRetry(url: string, options?: RetryOptions, callback?: (err?: Error | null) => void) {
-  const retries = options?.retries || 10;
-  const delay = options?.delay || 2000;
-  const maxDelay = options?.maxDelay || 60000;
-  const timeout = options?.timeout || 20000;
-
-  function attempt(n: number) {
-    head(url, { timeout }, (err) => {
-      if (err) {
-        if (n >= retries) {
-          if (callback) callback(err);
-          return;
-        }
-        // Exponential backoff with jitter and cap
-        const expDelay = Math.min(delay * 2 ** (n - 1), maxDelay);
-        const jitter = Math.random() * 1000;
-        setTimeout(() => attempt(n + 1), expDelay + jitter);
-      } else {
-        if (callback) callback(undefined);
-      }
-    });
-  }
-
-  attempt(1);
-}
-
-import type { Dist } from 'node-filename-to-dist-paths';
+import headWithRetry from '../lib/retry.ts';
 
 describe('filename', () => {
   const dists = getDists();
@@ -53,7 +19,7 @@ describe('filename', () => {
         const distPath = fromFilename(file, version);
 
         queue.defer((callback) => {
-          headWithRetry(`https://nodejs.org/dist/${distPath}`, { retries: 5, delay: 2000, timeout: 10000 }, (err) => {
+          headWithRetry(`https://nodejs.org/dist/${distPath}`, { retries: 5, delay: 1000, maxDelay: 16000, timeout: 10000 }, (err) => {
             if (err) {
               console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
               return callback(err);
