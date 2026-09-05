@@ -16,6 +16,9 @@ export function isRetryable(err?: NodeJS.ErrnoException | null, statusCode?: num
   if (statusCode === 429 || (statusCode !== undefined && statusCode >= 500)) return true;
   if (!err) return false;
   if (err.code && RETRYABLE_CODES.indexOf(err.code) !== -1) return true;
+  // Versions of get-file-compat below the fixed release raise this error with no `code` set;
+  // match the message directly so retries still work against the range currently locked here.
+  if (/^Request timeout/.test(err.message || '')) return true;
   return /socket hang up/.test(err.message || '');
 }
 

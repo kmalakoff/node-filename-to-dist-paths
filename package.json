@@ -49,7 +49,7 @@
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
-    "get-file-compat": "^2.3.0",
+    "get-file-compat": "^2.4.0",
     "node-version-use": "*",
     "queue-cb": "^1.6.3",
     "single-line-log2": "^1.1.3",
