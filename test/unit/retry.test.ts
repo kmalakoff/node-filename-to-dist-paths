@@ -17,6 +17,10 @@ describe('retry', () => {
       assert.ok(isRetryable(new Error('socket hang up')));
     });
 
+    it('retries a get-file-compat request timeout with no code', () => {
+      assert.ok(isRetryable(new Error('Request timeout after 10000ms')));
+    });
+
     it('retries 429 and 5xx responses', () => {
       assert.ok(isRetryable(null, 429));
       assert.ok(isRetryable(null, 503));
