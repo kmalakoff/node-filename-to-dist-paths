@@ -22,8 +22,16 @@ describe('fromFilename', () => {
     assert.equal(fromFilename('win-x64-exe', 'v0.10.48'), 'v0.10.48/node.exe');
   });
 
-  it('maps headers to the shasums file', () => {
-    assert.equal(fromFilename('headers', 'v18.20.4'), 'v18.20.4/SHASUMS256.txt');
+  it('maps headers to the headers tarball', () => {
+    assert.equal(fromFilename('headers', 'v18.20.4'), 'v18.20.4/node-v18.20.4-headers.tar.gz');
+  });
+
+  it('maps headers to the headers tarball for an old version', () => {
+    assert.equal(fromFilename('headers', 'v0.10.48'), 'v0.10.48/node-v0.10.48-headers.tar.gz');
+  });
+
+  it('honors the compression specifier for headers', () => {
+    assert.equal(fromFilename('headers', 'v18.20.4', { compression: 'xz' }), 'v18.20.4/node-v18.20.4-headers.tar.xz');
   });
 
   it('maps src to the source tarball', () => {

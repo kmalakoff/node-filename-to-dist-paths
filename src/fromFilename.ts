@@ -20,7 +20,7 @@ export default function fromFilename(filename: string, version: string, specifie
 
   if (ext === 'pkg') return ''.concat(version, '/node-').concat(version, '.').concat(ext);
   if (platform === 'src') return ''.concat(version, '/node-').concat(version, '.').concat(ext);
-  if (platform === 'headers') return ''.concat(version, '/SHASUMS256.txt');
+  if (platform === 'headers') return ''.concat(version, '/node-').concat(version, '-').concat(platform, '.').concat(ext);
 
   if (platform === 'win') {
     if (ext === 'exe') {

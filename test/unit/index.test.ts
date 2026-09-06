@@ -1,9 +1,11 @@
+import assert from 'assert';
 import type { Dist } from 'node-filename-to-dist-paths';
 import fromFilename, { getDists } from 'node-filename-to-dist-paths';
-import Queue from 'queue-cb';
-import sll from 'single-line-log2';
-import headWithRetry from '../lib/retry.ts';
+import getWithRetry from '../lib/retry.ts';
 
+const BASE = 'https://nodejs.org/dist/';
+
+// Fetches each major's published SHASUMS256.txt from nodejs.org, one request per spec.
 describe('filename', () => {
   const dists = getDists();
   const majors: Record<string, boolean> = {};
@@ -12,27 +14,21 @@ describe('filename', () => {
     const { version, files } = dist;
 
     it(`${version} should find the paths`, (done) => {
-      const queue = new Queue();
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const distPath = fromFilename(file, version);
-
-        queue.defer((callback) => {
-          headWithRetry(`https://nodejs.org/dist/${distPath}`, { retries: 5, delay: 1000, maxDelay: 16000, timeout: 10000 }, (err) => {
-            if (err) {
-              console.log(`\n${version} ${file} ${distPath}. Status: Error ${err.message}`);
-              return callback(err);
-            }
-            sll.stdout(`${version} ${file} ${distPath}.Status: OK`);
-            callback(undefined);
-          });
-        });
-      }
-
-      queue.await((err) => {
+      getWithRetry(`${BASE}${version}/SHASUMS256.txt`, { retries: 5, delay: 1000, maxDelay: 16000, timeout: 10000 }, (err, body) => {
         if (err) return done(err);
-        console.log(`\n${version} passed`);
+
+        const listed: Record<string, boolean> = Object.create(null);
+        const lines = (body || '').split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const name = lines[i].trim().split(/\s+/)[1];
+          if (name) listed[name] = true;
+        }
+
+        for (let j = 0; j < files.length; j++) {
+          const distPath = fromFilename(files[j], version);
+          const rel = distPath.slice(version.length + 1);
+          assert.ok(listed[rel], `${version} ${files[j]} -> ${rel} not published`);
+        }
         done();
       });
     });
