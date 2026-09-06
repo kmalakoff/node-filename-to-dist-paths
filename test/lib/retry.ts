@@ -1,4 +1,4 @@
-import { head } from 'get-file-compat';
+import { getContent } from 'get-file-compat';
 
 export interface RetryOptions {
   retries?: number;
@@ -22,16 +22,16 @@ export function isRetryable(err?: NodeJS.ErrnoException | null, statusCode?: num
   return /socket hang up/.test(err.message || '');
 }
 
-export default function headWithRetry(url: string, options: RetryOptions, callback: (err?: Error | null) => void): void {
+export default function getWithRetry(url: string, options: RetryOptions, callback: (err?: Error | null, body?: string) => void): void {
   const retries = options.retries || 5;
   const delay = options.delay || 1000;
   const maxDelay = options.maxDelay || 16000;
   const timeout = options.timeout || 10000;
 
   function attempt(n: number) {
-    head(url, { timeout }, (err, response) => {
-      const statusCode = response?.statusCode;
-      if (!err && statusCode !== undefined && statusCode >= 200 && statusCode < 300) return callback(undefined);
+    getContent(url, 'utf8', { timeout }, (err, result) => {
+      const statusCode = result?.statusCode;
+      if (!err && statusCode !== undefined && statusCode >= 200 && statusCode < 300) return callback(undefined, result?.content);
 
       const failure = err || new Error(`Unexpected status code ${statusCode}`);
       if (!isRetryable(err, statusCode) || n >= retries) return callback(failure);
