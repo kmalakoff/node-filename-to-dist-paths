@@ -1,6 +1,10 @@
-## node-filename-to-dist-paths
+# node-filename-to-dist-paths
 
 Converts files from https://nodejs.org/dist/index.json into relative distribution paths for download from https://nodejs.org/dist/.
+
+```bash
+npm install node-filename-to-dist-paths
+```js
 
 ```
 var fromFilename = require('node-filename-to-dist-paths');
@@ -22,3 +26,5 @@ console.log(fromFilename('linux-x64-musl', 'v24.20.0'));
 ```
 
 A third dash-separated segment that isn't one of the known extensions (`tar`, `zip`, `7z`, `msi`, `exe`, `pkg`) is treated as an arch variant rather than the extension, as with the `musl` in `linux-x64-musl` above.
+
+The default export converts a filename key and version to a path. The package also exports `getDist`, `getDistAsync`, `getDists`, and `getDistsAsync` for reading the Node.js distribution index.
