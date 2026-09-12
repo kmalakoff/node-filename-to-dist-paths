@@ -1,6 +1,6 @@
-import exit from 'exit-compat';
-import Cache from 'fetch-json-cache';
-import { CACHE_PATH, DISTS_URL } from '../constants.ts';
+const exit = require('exit-compat');
+const Cache = require('fetch-json-cache');
+const { CACHE_PATH, DISTS_URL } = require('./constants.cts');
 
 function cache(callback: (err: Error | null) => undefined): void {
   const cacheInstance = new Cache(CACHE_PATH);
