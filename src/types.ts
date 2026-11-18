@@ -18,3 +18,12 @@ export interface Dist {
 export interface Specifier {
   compression?: string;
 }
+
+export interface DistsOptions {
+  /**
+   * The only folder read and written. Without it the list is refreshed into `~/.node-filename-to-dist-paths/cache/<format>/`
+   * and the copy shipped with the package is read when it is newer. With it, the sync functions return `null`
+   * until an async function has saved the list there.
+   */
+  cachePath?: string;
+}

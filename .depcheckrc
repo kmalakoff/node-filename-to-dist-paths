@@ -1,1 +1,1 @@
-ignores: ["node-filename-to-dist-paths", "node-version-use", "ts-dev-stack"]
+ignores: ["node-filename-to-dist-paths", "node-version-use", "ts-dev-stack", "mkdirp-classic"]

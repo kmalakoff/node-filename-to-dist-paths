@@ -44,12 +44,15 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "fetch-json-cache": "^1.2.1"
+    "fetch-json-cache": "^1.9.0",
+    "homedir-polyfill": "^1.0.3"
   },
   "devDependencies": {
     "@types/mocha": "*",
     "@types/node": "*",
+    "fs-remove-compat": "^1.0.0",
     "get-file-compat": "^2.4.0",
+    "mkdirp-classic": "^0.5.2",
     "node-version-use": "*",
     "ts-dev-stack": "*",
     "tsds-config": "*"

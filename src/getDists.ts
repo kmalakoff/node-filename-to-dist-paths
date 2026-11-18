@@ -1,10 +1,7 @@
-import Cache from 'fetch-json-cache';
-import { CACHE_PATH, DISTS_URL } from './constants.ts';
+import { DISTS_URL } from './constants.ts';
+import getCache from './lib/getCache.ts';
+import type { Dist, DistsOptions } from './types.ts';
 
-import type { Dist } from './types.ts';
-
-const cache = new Cache(CACHE_PATH);
-
-export default function getDists(): Dist[] | null {
-  return cache.getSync<Dist[]>(DISTS_URL);
+export default function getDists(options?: DistsOptions): Dist[] | null {
+  return getCache(options?.cachePath).cache.getSync<Dist[]>(DISTS_URL);
 }

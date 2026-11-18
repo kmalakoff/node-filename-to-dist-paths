@@ -1,16 +1,20 @@
-import Cache from 'fetch-json-cache';
-import { CACHE_PATH, DISTS_URL } from './constants.ts';
+import { DISTS_URL } from './constants.ts';
+import getCache from './lib/getCache.ts';
 
-import type { Dist, DistsCallback } from './types.ts';
+import type { Dist, DistsCallback, DistsOptions } from './types.ts';
 
-const cache = new Cache(CACHE_PATH);
-
-export default function getDistsAsync(): Promise<Dist[] | null>;
+export default function getDistsAsync(options?: DistsOptions): Promise<Dist[] | null>;
 export default function getDistsAsync(callback: DistsCallback): void;
-export default function getDistsAsync(callback?: DistsCallback): void | Promise<Dist[] | null> {
+export default function getDistsAsync(options: DistsOptions, callback: DistsCallback): void;
+export default function getDistsAsync(options?: DistsOptions | DistsCallback, callback?: DistsCallback): void | Promise<Dist[] | null> {
+  callback = typeof options === 'function' ? options : callback;
+  const opts = typeof options === 'function' ? undefined : options;
+
   const worker = (callback: DistsCallback) => {
+    const { cache, noHome } = getCache(opts?.cachePath);
+    // no usable home to refresh into, or an unreachable endpoint - fall back to the newest stored copy
+    if (noHome) return callback(undefined, cache.getSync<Dist[]>(DISTS_URL));
     cache.get<Dist[]>(DISTS_URL, (err, dists) => {
-      // endpoint unreachable - fall back to the on-disk snapshot
       if (err) return callback(undefined, cache.getSync<Dist[]>(DISTS_URL));
       callback(undefined, dists || null);
     });
